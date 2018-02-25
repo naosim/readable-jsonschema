@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<style>
+textarea {
+  width: 400px;
+  height: 240px;
+}
+</style>
+<script src="js/readable-jsonschema.js"></script>
+<h1>script</h1>
+<textarea id="input">
+object({
+  status: object({
+    code: number('HTTPステータスコード'),
+    message: string()
+  }),
+  errors: arrayOption(object({
+    error_type: string(),
+    error_message: string()
+  }))
+}, {
+  "$schema": "http://json-schema.org/draft-07/schema#"
+})
+</textarea><br/>
+<button>convert jsonschema</button><br/>
+<textarea id="output"></textarea>
+
+<script>
+document.querySelector('button').addEventListener('click', () => {
+  var script = document.querySelector('#input').value;
+  var result = JSON.stringify(build(script), null, '  ');
+  document.querySelector('#output').value = result;
+})
+</script>
